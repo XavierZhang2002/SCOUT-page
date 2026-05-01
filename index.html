@@ -278,9 +278,9 @@
             <h1 class="title is-1 publication-title"><span class="scout-highlight">SCOUT</span>: Active Information Foraging for Long-Text Understanding with Decoupled Epistemic States</h1>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
-                <a href="https://github.com/XavierZhang2002" target="_blank">Zhenliang Zhang</a><sup class="affil">1,2</sup><sup>*</sup>,</span>
+                <a href="https://github.com/XavierZhang2002" target="_blank">Zhenliang Zhang</a><sup class="affil">1,2</sup><sup>&dagger;</sup>,</span>
               <span class="author-block">
-                <a href="#" target="_blank">Wenqing Wang</a><sup class="affil">1,2</sup><sup>*</sup>,</span>
+                <a href="#" target="_blank">Wenqing Wang</a><sup class="affil">1,2</sup><sup>&dagger;</sup>,</span>
               <span class="author-block">
                 Yong Hu<sup class="affil">2</sup>,</span>
               <span class="author-block">
@@ -298,7 +298,7 @@
               <span class="author-block"><sup>1</sup> Peking University&nbsp;&nbsp;&nbsp;<sup>2</sup> WeChat, Tencent</span>
               <br>
               <span class="author-block" style="font-weight: 600; color: var(--primary-color);">ICML 2026</span>
-              <span class="eql-cntrb"><small><br><sup>*</sup>Equal Contribution</small></span>
+              <span class="eql-cntrb"><small><br><sup>&dagger;</sup>Work done during an internship at WeChat, Tencent</small></span>
             </div>
 
             <div class="column has-text-centered">
@@ -429,10 +429,17 @@
           </p>
         </div>
         <!-- TODO: Replace with actual Figure 2 from the paper -->
-        <img src="static/images/method.png" alt="SCOUT paradigm comparison and architecture" class="method-figure" loading="lazy"/>
+        <img src="static/images/method.png" alt="SCOUT paradigm comparison" class="method-figure" loading="lazy"/>
         <p class="has-text-centered" style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.95rem;">
-          <b>Paradigm comparison.</b> Top: Full-context LLMs suffer attention dilution. Middle: Chunking/RAG agents break coherence. Bottom (ours): SCOUT decouples exploration from reasoning via a provenance-anchored epistemic state.
+          <b>Paradigm comparison.</b> Top: Full-context LLMs suffer attention dilution and prohibitive cost. Middle: Chunking/RAG agents break context coherence via lossy compression. Bottom (ours): SCOUT actively forages within the raw environment and distills a compact epistemic state for answering.
         </p>
+
+        <div style="margin-top: 3rem;">
+          <img src="static/images/architecture.png" alt="SCOUT architecture: information foraging with decoupled epistemic state" class="method-figure" loading="lazy"/>
+          <p class="has-text-centered" style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.95rem;">
+            <b>SCOUT architecture.</b> The agent treats the million-token document as an explorable environment. Through iterative foraging actions (Grep, Scan, Read), it acquires local observations and distills them into a provenance-anchored Epistemic State &epsilon;<sub>t</sub>. The final answer is derived solely from &epsilon;<sub>T</sub>, without access to the noisy interaction history.
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -451,6 +458,11 @@
             We evaluate SCOUT on two challenging benchmarks: <b>LOOGLE-V2</b> (long-dependency reasoning) and <b>&infin;BENCH</b> (ultra-long scale). Under a Unified Backbone Protocol (all agents use Claude-Sonnet-4.5), SCOUT achieves the highest accuracy on both benchmarks with the best token efficiency.
           </p>
         </div>
+
+        <img src="static/images/comprehensive_tradeoff.png" alt="Comprehensive accuracy-cost tradeoff on LOOGLE-V2 and InfiniteBench" class="method-figure" style="margin-bottom: 2rem;" loading="lazy"/>
+        <p class="has-text-centered" style="margin-top: -0.5rem; margin-bottom: 2rem; color: var(--text-secondary); font-size: 0.95rem;">
+          <b>Comprehensive accuracy&ndash;cost tradeoff.</b> SCOUT (purple triangle) achieves Pareto-optimal performance on both benchmarks, combining the highest accuracy with the lowest token cost among all methods.
+        </p>
 
         <h3 class="title is-4" style="margin-top: 2rem;">LOOGLE-V2</h3>
         <div style="overflow-x: auto;">
