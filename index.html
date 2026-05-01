@@ -429,17 +429,10 @@
           </p>
         </div>
         <!-- TODO: Replace with actual Figure 2 from the paper -->
-        <img src="static/images/method.png" alt="SCOUT paradigm comparison" class="method-figure" loading="lazy"/>
+        <img src="static/images/overview.png" alt="Paradigm comparison for million-token LTU and SCOUT's state-decoupled convergence" class="method-figure" loading="lazy"/>
         <p class="has-text-centered" style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.95rem;">
-          <b>Paradigm comparison.</b> Top: Full-context LLMs suffer attention dilution and prohibitive cost. Middle: Chunking/RAG agents break context coherence via lossy compression. Bottom (ours): SCOUT actively forages within the raw environment and distills a compact epistemic state for answering.
+          <b>Paradigm comparison and SCOUT overview.</b> Top: Full-context LLMs ingest the entire sequence, suffering attention dilution and quadratic cost. Middle: Chunking/RAG agents improve scalability but break global coherence and lose details. Bottom (ours): SCOUT treats the document as an explorable environment and decouples the noisy interaction history H<sub>t</sub> from a verified Epistemic State &epsilon;<sub>t</sub>. The agent iteratively forages, distills provenance-anchored knowledge, and converges toward query sufficiency.
         </p>
-
-        <div style="margin-top: 3rem;">
-          <img src="static/images/architecture.png" alt="SCOUT architecture: information foraging with decoupled epistemic state" class="method-figure" loading="lazy"/>
-          <p class="has-text-centered" style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.95rem;">
-            <b>SCOUT architecture.</b> The agent treats the million-token document as an explorable environment. Through iterative foraging actions (Grep, Scan, Read), it acquires local observations and distills them into a provenance-anchored Epistemic State &epsilon;<sub>t</sub>. The final answer is derived solely from &epsilon;<sub>T</sub>, without access to the noisy interaction history.
-          </p>
-        </div>
       </div>
     </div>
   </div>
