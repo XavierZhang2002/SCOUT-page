@@ -60,8 +60,9 @@
 
   <title>SCOUT: Active Information Foraging for Long-Text Understanding with Decoupled Epistemic States</title>
   
-  <!-- No favicon - use browser default -->
-  <link rel="icon" href="data:,">
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="static/images/scout_logo.png">
   
   <!-- Critical CSS - Load synchronously -->
   <link rel="stylesheet" href="static/css/bulma.min.css">
@@ -259,6 +260,45 @@
       font-size: 0.7em;
       margin-left: 1px;
     }
+    .teaser-stats {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: var(--background-accent);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--border-color);
+      flex: 1;
+    }
+    .stat-value {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary-color);
+      line-height: 1.2;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      font-weight: 500;
+      margin-top: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    @media screen and (max-width: 768px) {
+      .teaser-stats {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+      .stat-item {
+        min-width: calc(50% - 0.75rem);
+      }
+    }
     /* Fixed Navbar */
     .navbar-custom {
       position: fixed;
@@ -365,7 +405,7 @@
   <!-- Top Navigation Bar -->
   <nav class="navbar-custom" id="topNav">
     <div class="navbar-inner">
-      <a href="#" class="navbar-brand-text">SCOUT</a>
+      <a href="#" class="navbar-brand-text"><img src="static/images/scout_logo.png" alt="SCOUT" style="height: 28px; width: 28px; vertical-align: middle; margin-right: 6px; border-radius: 6px;">SCOUT</a>
       <div class="navbar-links">
         <a href="#abstract" class="nav-section">Abstract</a>
         <a href="#method" class="nav-section">Method</a>
@@ -459,12 +499,34 @@
 <!-- Teaser figure -->
 <section class="hero teaser">
   <div class="container is-max-desktop">
-    <div class="hero-body has-text-centered">
-      <!-- TODO: Replace with actual Figure 1 from the paper -->
-      <img src="static/images/teaser.png" alt="Accuracy-Cost tradeoff showing SCOUT achieves the best balance" class="teaser-figure" loading="lazy"/>
-      <h2 class="subtitle has-text-centered" style="margin-top: 1.5rem;">
-        <b>Accuracy&ndash;cost trade-off.</b> SCOUT matches state-of-the-art proprietary models while reducing token consumption by up to <b>8&times;</b>, offering the best accuracy&ndash;efficiency balance for million-token Long-Text Understanding.
-      </h2>
+    <div class="hero-body">
+      <div class="columns is-vcentered">
+        <div class="column is-5">
+          <img src="static/images/teaser.png" alt="Accuracy-Cost tradeoff showing SCOUT achieves the best balance" class="teaser-figure" style="max-width: 100%; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-lg);" loading="lazy"/>
+        </div>
+        <div class="column is-7">
+          <div class="teaser-highlights">
+            <h3 class="title is-4" style="margin-bottom: 1rem; color: var(--text-primary);">Accuracy&ndash;Cost Trade-off</h3>
+            <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary);">
+              <span class="scout-highlight">SCOUT</span> matches state-of-the-art proprietary models while reducing token consumption by up to <b>8&times;</b>, offering the best accuracy&ndash;efficiency balance for million-token Long-Text Understanding.
+            </p>
+            <div class="teaser-stats">
+              <div class="stat-item">
+                <span class="stat-value">78.7%</span>
+                <span class="stat-label">LOOGLE-V2 Acc</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value">85.6%</span>
+                <span class="stat-label">&infin;BENCH Acc</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-value">8&times;</span>
+                <span class="stat-label">Cost Reduction</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
