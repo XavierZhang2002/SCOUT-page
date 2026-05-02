@@ -60,9 +60,8 @@
 
   <title>SCOUT: Active Information Foraging for Long-Text Understanding with Decoupled Epistemic States</title>
   
-  <!-- Favicon and App Icons -->
-  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
-  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+  <!-- No favicon - use browser default -->
+  <link rel="icon" href="data:,">
   
   <!-- Critical CSS - Load synchronously -->
   <link rel="stylesheet" href="static/css/bulma.min.css">
@@ -260,9 +259,125 @@
       font-size: 0.7em;
       margin-left: 1px;
     }
+    /* Fixed Navbar */
+    .navbar-custom {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1001;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      padding: 0 1.5rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .navbar-custom.scrolled {
+      box-shadow: var(--shadow-md);
+    }
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 960px;
+      width: 100%;
+    }
+    .navbar-brand-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .navbar-brand-text:hover {
+      color: var(--primary-color);
+    }
+    .navbar-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .navbar-links a {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.4rem 0.7rem;
+      border-radius: 8px;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .navbar-links a:hover {
+      color: var(--primary-color);
+      background: var(--background-accent);
+    }
+    .navbar-links .nav-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--border-color);
+      margin: 0 0.3rem;
+    }
+    .navbar-links .nav-ext {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .navbar-links .nav-ext:hover {
+      color: white;
+      background: var(--primary-color);
+    }
+    body {
+      padding-top: 56px;
+    }
+    /* Offset anchors for fixed navbar */
+    section[id] {
+      scroll-margin-top: 64px;
+    }
+    #BibTeX {
+      scroll-margin-top: 64px;
+    }
+    @media screen and (max-width: 768px) {
+      .navbar-brand-text {
+        font-size: 0.9rem;
+      }
+      .navbar-links a {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.5rem;
+      }
+      .navbar-links .nav-section {
+        display: none;
+      }
+      .navbar-links .nav-divider {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Top Navigation Bar -->
+  <nav class="navbar-custom" id="topNav">
+    <div class="navbar-inner">
+      <a href="#" class="navbar-brand-text">SCOUT</a>
+      <div class="navbar-links">
+        <a href="#abstract" class="nav-section">Abstract</a>
+        <a href="#method" class="nav-section">Method</a>
+        <a href="#results" class="nav-section">Results</a>
+        <a href="#scaling" class="nav-section">Scaling</a>
+        <a href="#BibTeX" class="nav-section">BibTeX</a>
+        <div class="nav-divider"></div>
+        <a href="https://arxiv.org/abs/ARXIV_ID" target="_blank" class="nav-ext"><i class="fas fa-file-pdf"></i> Paper</a>
+        <a href="https://github.com/XavierZhang2002/Scout" target="_blank" class="nav-ext"><i class="fab fa-github"></i> Code</a>
+      </div>
+    </div>
+  </nav>
 
   <!-- Scroll to Top Button -->
   <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
@@ -356,7 +471,7 @@
 <!-- End teaser figure -->
 
 <!-- Paper abstract -->
-<section class="section hero is-light">
+<section class="section hero is-light" id="abstract">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
@@ -412,7 +527,7 @@
 
 
 <!-- Method Overview -->
-<section class="section hero is-light">
+<section class="section hero is-light" id="method">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column">
@@ -441,7 +556,7 @@
 
 
 <!-- Main Results -->
-<section class="section">
+<section class="section" id="results">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column">
@@ -451,11 +566,6 @@
             We evaluate SCOUT on two challenging benchmarks: <b>LOOGLE-V2</b> (long-dependency reasoning) and <b>&infin;BENCH</b> (ultra-long scale). Under a Unified Backbone Protocol (all agents use Claude-Sonnet-4.5), SCOUT achieves the highest accuracy on both benchmarks with the best token efficiency.
           </p>
         </div>
-
-        <img src="static/images/comprehensive_tradeoff.png" alt="Comprehensive accuracy-cost tradeoff on LOOGLE-V2 and InfiniteBench" class="method-figure" style="margin-bottom: 2rem;" loading="lazy"/>
-        <p class="has-text-centered" style="margin-top: -0.5rem; margin-bottom: 2rem; color: var(--text-secondary); font-size: 0.95rem;">
-          <b>Comprehensive accuracy&ndash;cost tradeoff.</b> SCOUT (purple triangle) achieves Pareto-optimal performance on both benchmarks, combining the highest accuracy with the lowest token cost among all methods.
-        </p>
 
         <h3 class="title is-4" style="margin-top: 2rem;">LOOGLE-V2</h3>
         <div style="overflow-x: auto;">
@@ -624,7 +734,7 @@
 
 
 <!-- Scaling Analysis -->
-<section class="section hero is-light">
+<section class="section hero is-light" id="scaling">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column">
@@ -734,10 +844,10 @@
           <span class="copy-text">Copy</span>
         </button>
       </div>
-      <pre id="bibtex-code"><code>@inproceedings{zhang2026scout,
+      <pre id="bibtex-code"><code>@article{zhang2026scout,
   title={SCOUT: Active Information Foraging for Long-Text Understanding with Decoupled Epistemic States},
   author={Zhang, Zhenliang and Wang, Wenqing and Hu, Yong and Yang, Yaming and Gao, Jiaheng and Shen, Chen and Wan, Xiaojun},
-  booktitle={Proceedings of the 43rd International Conference on Machine Learning (ICML)},
+  journal={arXiv preprint arXiv:XXXX.XXXXX},
   year={2026}
 }</code></pre>
     </div>
@@ -761,5 +871,16 @@
 </footer>
 
   </main>
+
+  <script>
+  window.addEventListener('scroll', function() {
+    var nav = document.getElementById('topNav');
+    if (window.scrollY > 50) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  });
+  </script>
   </body>
   </html>
