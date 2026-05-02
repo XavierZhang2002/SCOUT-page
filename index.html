@@ -260,45 +260,6 @@
       font-size: 0.7em;
       margin-left: 1px;
     }
-    .teaser-stats {
-      display: flex;
-      gap: 1.5rem;
-      margin-top: 1.5rem;
-    }
-    .stat-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 0.75rem 1rem;
-      background: var(--background-accent);
-      border-radius: var(--border-radius);
-      border: 1px solid var(--border-color);
-      flex: 1;
-    }
-    .stat-value {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--primary-color);
-      line-height: 1.2;
-    }
-    .stat-label {
-      font-size: 0.75rem;
-      color: var(--text-light);
-      font-weight: 500;
-      margin-top: 0.25rem;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
-    @media screen and (max-width: 768px) {
-      .teaser-stats {
-        flex-wrap: wrap;
-        gap: 0.75rem;
-      }
-      .stat-item {
-        min-width: calc(50% - 0.75rem);
-      }
-    }
     /* Fixed Navbar */
     .navbar-custom {
       position: fixed;
@@ -380,7 +341,7 @@
     section[id] {
       scroll-margin-top: 64px;
     }
-    #BibTeX {
+    #citation {
       scroll-margin-top: 64px;
     }
     @media screen and (max-width: 768px) {
@@ -411,7 +372,7 @@
         <a href="#method" class="nav-section">Method</a>
         <a href="#results" class="nav-section">Results</a>
         <a href="#scaling" class="nav-section">Scaling</a>
-        <a href="#BibTeX" class="nav-section">BibTeX</a>
+        <a href="#citation" class="nav-section">Citation</a>
         <div class="nav-divider"></div>
         <a href="https://arxiv.org/abs/ARXIV_ID" target="_blank" class="nav-ext"><i class="fas fa-file-pdf"></i> Paper</a>
         <a href="https://github.com/XavierZhang2002/Scout" target="_blank" class="nav-ext"><i class="fab fa-github"></i> Code</a>
@@ -502,7 +463,7 @@
     <div class="hero-body">
       <div class="columns is-vcentered">
         <div class="column is-5">
-          <img src="static/images/teaser.png" alt="Accuracy-Cost tradeoff showing SCOUT achieves the best balance" class="teaser-figure" style="max-width: 100%; border-radius: var(--border-radius-lg); box-shadow: var(--shadow-lg);" loading="lazy"/>
+          <img src="static/images/teaser.png" alt="Accuracy-Cost tradeoff showing SCOUT achieves the best balance" style="max-width: 100%; height: auto; box-shadow: var(--shadow-lg);" loading="lazy"/>
         </div>
         <div class="column is-7">
           <div class="teaser-highlights">
@@ -510,20 +471,9 @@
             <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary);">
               <span class="scout-highlight">SCOUT</span> matches state-of-the-art proprietary models while reducing token consumption by up to <b>8&times;</b>, offering the best accuracy&ndash;efficiency balance for million-token Long-Text Understanding.
             </p>
-            <div class="teaser-stats">
-              <div class="stat-item">
-                <span class="stat-value">78.7%</span>
-                <span class="stat-label">LOOGLE-V2 Acc</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-value">85.6%</span>
-                <span class="stat-label">&infin;BENCH Acc</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-value">8&times;</span>
-                <span class="stat-label">Cost Reduction</span>
-              </div>
-            </div>
+            <p style="font-size: 0.95rem; line-height: 1.8; color: var(--text-secondary); margin-top: 0.75rem;">
+              On <b>LOOGLE-V2</b>, SCOUT achieves 78.7% accuracy at only 29.7k tokens. On <b>&infin;BENCH</b>, it reaches 85.6% at 21.4k tokens&mdash;matching or surpassing Gemini-3-Pro with over 8&times; lower cost.
+            </p>
           </div>
         </div>
       </div>
@@ -896,25 +846,25 @@
 <!-- End Training Gains -->
 
 
-<!--BibTex citation -->
-  <section class="section" id="BibTeX">
+<!-- Citation -->
+  <section class="section" id="citation">
     <div class="container is-max-desktop content">
       <div class="bibtex-header">
-        <h2 class="title">BibTeX</h2>
+        <h2 class="title">Citation</h2>
         <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
           <i class="fas fa-copy"></i>
           <span class="copy-text">Copy</span>
         </button>
       </div>
-      <pre id="bibtex-code"><code>@article{zhang2026scout,
+      <pre id="bibtex-code"><code>@inproceedings{zhang2026scout,
   title={SCOUT: Active Information Foraging for Long-Text Understanding with Decoupled Epistemic States},
   author={Zhang, Zhenliang and Wang, Wenqing and Hu, Yong and Yang, Yaming and Gao, Jiaheng and Shen, Chen and Wan, Xiaojun},
-  journal={arXiv preprint arXiv:XXXX.XXXXX},
+  booktitle={Proceedings of the 43rd International Conference on Machine Learning (ICML)},
   year={2026}
 }</code></pre>
     </div>
 </section>
-<!--End BibTex citation -->
+<!-- End Citation -->
 
 
   <footer class="footer">
