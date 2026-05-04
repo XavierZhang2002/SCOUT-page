@@ -260,6 +260,10 @@
       font-size: 0.65em;
       margin-left: 1px;
     }
+    sup.affil-dagger {
+      font-size: 0.9em;
+      margin-left: 0px;
+    }
     .diamond-outline {
       -webkit-text-stroke: 1px currentColor;
       font-weight: bold;
@@ -398,9 +402,9 @@
             <h1 class="title is-1 publication-title"><span class="scout-highlight">SCOUT</span>: Active Information Foraging for Long-Text Understanding with Decoupled Epistemic States</h1>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
-                Zhenliang Zhang<sup class="affil">&clubs;<span class="diamond-outline">&#9826;</span>&dagger;</sup>,</span>
+                Zhenliang Zhang<sup class="affil">&clubs;<span class="diamond-outline">&#9826;</span></sup><sup class="affil-dagger">&dagger;</sup>,</span>
               <span class="author-block">
-                Wenqing Wang<sup class="affil">&clubs;<span class="diamond-outline">&#9826;</span>&dagger;</sup>,</span>
+                Wenqing Wang<sup class="affil">&clubs;<span class="diamond-outline">&#9826;</span></sup><sup class="affil-dagger">&dagger;</sup>,</span>
               <span class="author-block">
                 Yong Hu<sup class="affil"><span class="diamond-outline">&#9826;</span></sup>,</span>
               <span class="author-block">
@@ -471,7 +475,7 @@
         </div>
         <div class="column is-7">
           <div class="teaser-highlights">
-            <h3 class="title is-4" style="margin-bottom: 1rem; color: var(--text-primary);">Accuracy&ndash;Cost Trade-off</h3>
+            <h3 class="title is-4" style="margin-bottom: 1rem; color: var(--text-primary);">Accuracy&ndash;Cost</h3>
             <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary);">
               <span class="scout-highlight">SCOUT</span> matches state-of-the-art proprietary models while reducing token consumption by up to <b>8&times;</b>, offering the best accuracy&ndash;efficiency balance for million-token Long-Text Understanding.
             </p>
@@ -535,6 +539,14 @@
             <p>Low token cost that avoids brute-force ingestion of the full document, keeping inference practical at scale.</p>
           </div>
         </div>
+        <div class="content has-text-justified" style="margin-top: 2rem;">
+          <p>
+            We trace the root cause to the <b>Task-Agnostic Processing Trap</b>: existing paradigms pre-process long documents (via indexing, compression, or encoding) without conditioning on the downstream query, misallocating computation to irrelevant regions while losing query-critical details. This motivates our <b>information sparsity assumption</b>&mdash;for a given query, the information needed to answer is typically a small, query-sufficient subset of the full document. Efficient LTU should therefore focus on discovering and consolidating this subset, rather than exhaustively processing the entire corpus.
+          </p>
+          <p style="text-align: center; font-style: italic; font-size: 1.1rem; margin: 1.5rem 0; color: var(--text-primary);">
+            &ldquo;The agent need not digest the world; it need only learn to forage within it.&rdquo;
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -550,19 +562,19 @@
         <h2 class="title is-3">Method</h2>
         <div class="content has-text-justified">
           <p>
-            <b><span class="scout-highlight">SCOUT</span></b> reframes LTU as goal-directed information foraging under partial observability. Rather than processing the entire document or pre-building task-agnostic structures, SCOUT treats the document as an <b>explorable environment</b> and navigates it on demand.
+            A common operationalization of on-demand information acquisition is the <b>history-as-state</b> agent (e.g., ReAct), where the growing interaction history H<sub>t</sub> serves as both the navigation trace and the reasoning substrate. However, as H<sub>t</sub> grows over long horizons, the signal-to-noise ratio decreases&mdash;most acquired observations fall outside the query-relevant set, contaminating the reasoning input.
           </p>
           <p>
-            The key innovation is <b>state decoupling</b>: SCOUT separates the growing interaction history (procedural trace) from a compact <b>Epistemic State</b> that serves as the sole reasoning substrate. Each entry in the epistemic state is a provenance-anchored unit &langle;<i>content</i>, <i>anchor</i>&rangle; traceable to the source text.
+            <b><span class="scout-highlight">SCOUT</span></b> addresses this via <b>state decoupling</b>: it separates the interaction history (procedural trace, used only for navigation) from a compact <b>Epistemic State</b> (the sole substrate for answering). Each entry in the epistemic state is a provenance-anchored unit traceable to the source text. Crucially, the final answer is produced from the epistemic state alone, without access to the noisy interaction history.
           </p>
           <p>
-            The agent alternates between <b>foraging actions</b> (Grep, Scan, Read) for multi-resolution exploration and <b>epistemic management actions</b> (Update, View, Evaluate) that commit verified knowledge and diagnose information gaps, driving the epistemic state toward query sufficiency.
+            Through iterative <b>gap diagnosis</b>, SCOUT assesses what information is still missing and directs subsequent foraging accordingly, progressively driving the epistemic state toward the minimal query-sufficient set.
           </p>
         </div>
         <!-- TODO: Replace with actual Figure 2 from the paper -->
         <img src="static/images/overview.png" alt="Paradigm comparison for million-token LTU and SCOUT's state-decoupled convergence" class="method-figure" loading="lazy"/>
         <p class="has-text-centered" style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.95rem;">
-          <b>Paradigm comparison and SCOUT overview.</b> Top: Full-context LLMs ingest the entire sequence, suffering attention dilution and quadratic cost. Middle: Chunking/RAG agents improve scalability but break global coherence and lose details. Bottom (ours): SCOUT treats the document as an explorable environment and decouples the noisy interaction history H<sub>t</sub> from a verified Epistemic State &epsilon;<sub>t</sub>. The agent iteratively forages, distills provenance-anchored knowledge, and converges toward query sufficiency.
+          <b>Paradigm comparison for million-token LTU and SCOUT's state-decoupled convergence.</b> Top: Full-context LLMs ingest the entire sequence, suffering attention dilution and quadratic compute/memory growth. Middle: Chunking/RAG-style agents improve scalability via fragmented access, but coherence can break across long ranges and answer-critical details may be lost. Bottom (ours): SCOUT treats the document as an explorable environment and decouples procedural exploration (a noisy interaction history) from epistemic reasoning (a distilled state). Across steps, the agent distills anchored knowledge into &epsilon;<sub>t</sub> and uses state-level diagnosis to guide foraging, progressively contracting &epsilon;<sub>t</sub> toward query sufficiency.
         </p>
       </div>
     </div>
@@ -763,7 +775,7 @@
         <!-- TODO: Replace with actual Figure 3 from the paper -->
         <img src="static/images/scaling.png" alt="Scaling analysis showing SCOUT maintains stable performance as context grows" class="method-figure" loading="lazy"/>
         <p class="has-text-centered" style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.95rem;">
-          <b>Left:</b> Accuracy remains near-flat for SCOUT as context grows. <b>Right:</b> Token cost stays nearly constant (log scale), while monolithic models grow rapidly.
+          <b>Alleviating the LTU trilemma under scaling.</b> Left: as context grows from 64K to 1M+, SCOUT maintains near-flat, top accuracy, while frontier monolithic LLMs often degrade at long horizons. Right (log scale): SCOUT keeps token cost nearly constant, whereas monolithic ingestion costs grow rapidly with context length.
         </p>
       </div>
     </div>
@@ -780,7 +792,7 @@
         <h2 class="title is-3">Training Gains under SCOUT</h2>
         <div class="content has-text-justified">
           <p>
-            With controlled post-training budgets (~60M optimization tokens), LLM-only SFT yields marginal gains for million-token LTU. In contrast, training the same backbone within the SCOUT paradigm produces <b>substantially larger improvements</b>. DAPO further amplifies these gains, demonstrating that the dominant bottleneck is not raw parametric knowledge but <b>long-horizon interaction and state control</b>&mdash;the missing structure that SCOUT supplies.
+            <b>The same budget pays off only when paired with the SCOUT interface.</b> When the backbone is trained and evaluated as a monolithic LLM, SFT yields only marginal gains and can even be neutral under a fixed budget. Training and evaluating the same backbone within the SCOUT paradigm produces <b>substantially larger improvements</b> under the same optimization-token budget (~60M tokens), and DAPO further amplifies these gains under the identical interaction protocol. Together, this gap indicates that the dominant bottleneck for open-weight backbones in million-token LTU is not raw parametric knowledge, but <b>long-horizon interaction and state control</b>; SCOUT supplies the missing structure.
           </p>
         </div>
         <div style="overflow-x: auto;">
